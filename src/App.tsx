@@ -1,25 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
+import CoinsOverview from './components/CoinsOverview/index';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const coins = [
+    {
+      name: 'Bitcoin',
+      price: '$1000',
+    },
+    {
+      name: 'Either',
+      price: '$1000',
+    },
+    {
+      name: 'Litecoin',
+      price: '$1000',
+    },
+    {
+      name: 'Monero',
+      price: '$1000',
+    },
+    {
+      name: 'Ripple',
+      price: '$1000',
+    },
+    {
+      name: 'Dogecoin',
+      price: '$1000',
+    },
+    {
+      name: 'Dash',
+      price: '$1000',
+    },
+    {
+      name: 'Lisk',
+      price: '$1000',
+    },
+  ];
+  return <CoinsOverview coins={coins} title="Cryptocurrency Realtime price" />;
 }
 
 export default App;

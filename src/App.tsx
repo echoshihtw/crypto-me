@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CoinsOverview from './components/CoinsOverview/index';
-import { mapCoinData } from './model/coinMapper';
+import { mapCoinData } from './models/coinMapper';
 
 function App() {
   const [coinData, setCoinData] = useState();

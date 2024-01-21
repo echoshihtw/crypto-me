@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Frame from '../Frame';
 import CoinCard from './CoinCard';
-import { CoinItem } from '../../model/coinMapper';
+import { CoinItem } from '../../models/coinMapper';
 
 interface CoinsOverviewProps {
   coins: CoinItem[];

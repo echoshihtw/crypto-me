@@ -1,42 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CoinsOverview from './components/CoinsOverview/index';
+import { mapCoinData } from './model/coinMapper';
 
 function App() {
-  const coins = [
-    {
-      name: 'Bitcoin',
-      price: '$1000',
-    },
-    {
-      name: 'Either',
-      price: '$1000',
-    },
-    {
-      name: 'Litecoin',
-      price: '$1000',
-    },
-    {
-      name: 'Monero',
-      price: '$1000',
-    },
-    {
-      name: 'Ripple',
-      price: '$1000',
-    },
-    {
-      name: 'Dogecoin',
-      price: '$1000',
-    },
-    {
-      name: 'Dash',
-      price: '$1000',
-    },
-    {
-      name: 'Lisk',
-      price: '$1000',
-    },
-  ];
-  return <CoinsOverview coins={coins} title="Cryptocurrency Realtime price" />;
+  const [coinData, setCoinData] = useState();
+  useEffect(() => {
+    fetch('/api/crypto')
+      .then((res) => res.json())
+      .then((data) => {
+        const mappedCoinData = data.data.map((coin) => mapCoinData(coin));
+        setCoinData(mappedCoinData);
+      });
+  }, []);
+  return (
+    <CoinsOverview coins={coinData} title="Cryptocurrency Realtime price" />
+  );
 }
 
 export default App;

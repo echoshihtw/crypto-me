@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { CoinItem } from '../../model/coinMapper';
+import { CoinItem } from '../../models/coinMapper';
 
 interface CoinCardProps {
   coin: CoinItem;

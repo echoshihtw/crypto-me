@@ -2,6 +2,8 @@ import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
 import cors from "cors";
+import { Server } from "socket.io";
+import * as http from "http";
 
 const app = express();
 dotenv.config();
@@ -9,6 +11,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 const PORT = parseInt(process.env.PORT, 10) || 3001;
+
+const server = http.createServer(app);
+const io = new Server(server);
+
+// Socket.IO connection handler
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  // Disconnect event
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
 
 app.get("/api/crypto", async (req, res) => {
   let response;
@@ -24,6 +39,10 @@ app.get("/api/crypto", async (req, res) => {
     const formattedData = Object.keys(coinData).map((key) => ({
       ...coinData[key],
     }));
+
+    // Emit the data to the "crypto" channel
+    io.emit("crypto", formattedData);
+
     res.json({ data: formattedData });
   } catch (error) {
     console.log(error);

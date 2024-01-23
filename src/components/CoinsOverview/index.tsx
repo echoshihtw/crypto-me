@@ -18,7 +18,7 @@ const CoinsOverview = ({ title, coins, isLoading }: CoinsOverviewProps) => {
       content={
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
           {isLoading
-            ? defaultArray.map(() => <CoinSkeleton />)
+            ? defaultArray.map((index) => <CoinSkeleton key={index} />)
             : coins.map((coin) => <CoinCard coin={coin} key={coin.name} />)}
         </div>
       }

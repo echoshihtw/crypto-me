@@ -13,7 +13,7 @@ const PORT = parseInt(process.env.PORT, 10) || 3001;
 app.get("/api/crypto", async (req, res) => {
   let response;
   try {
-    const coinMarketCapUrl = `${process.env.CMC_API_URL}/listings/latest`;
+    const coinMarketCapUrl = `${process.env.CMC_API_URL}/quotes/latest?symbol=BTC,ETH,ITC,XMR,XRP,DOGE,DASH,MAID,LSK,SJCX`;
     const options = {
       headers: {
         "X-CMC_PRO_API_KEY": process.env.CMC_PRO_API_KEY,
@@ -21,33 +21,15 @@ app.get("/api/crypto", async (req, res) => {
     };
     response = await axios.get(coinMarketCapUrl, options);
     const coinData = response.data.data;
-    res.json({ data: coinData });
+    const formattedData = Object.keys(coinData).map((key) => ({
+      ...coinData[key],
+    }));
+    res.json({ data: formattedData });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
-// Set up periodic execution
-const interval = 2000; // 2 seconds
-setInterval(async (req, res) => {
-  try {
-    const coinMarketCapUrl = `${process.env.CMC_API_URL}/listings/latest`;
-    const options = {
-      headers: {
-        "X-CMC_PRO_API_KEY": process.env.CMC_PRO_API_KEY,
-      },
-    };
-
-    const response = await axios.get(coinMarketCapUrl, options);
-    const coinData = response.data.data;
-    res.json({ data: coinData });
-    // You may want to store or process the data here, or emit an event, etc.
-    console.log("Periodic update:", coinData);
-  } catch (error) {
-    console.error("Periodic update error:", error.message);
-  }
-}, interval);
 
 app.use((req, res, next) => {
   res.status(404).send("404 Not Found");

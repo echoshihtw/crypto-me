@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import CoinsOverview from './components/CoinsOverview/index';
-import { mapCoinData } from './models/coinMapper';
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
-  const [coinData, setCoinData] = useState();
-  useEffect(() => {
-    fetch('/api/crypto')
-      .then((res) => res.json())
-      .then((data) => {
-        const mappedCoinData = data.data.map((coin) => mapCoinData(coin));
-        setCoinData(mappedCoinData);
-      });
-  }, []);
   return (
-    <CoinsOverview coins={coinData} title="Cryptocurrency Realtime price" />
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 

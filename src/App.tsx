@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import CoinsOverview from './components/CoinsOverview/index';
-import { mapCoinData } from './models/coinMapper';
+import React from 'react';
+import RealtimeUpdatePage from './containers/RealtimeUpdatePage';
+import {
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from 'react-router-dom';
 
-function App() {
-  const [coinData, setCoinData] = useState();
-  useEffect(() => {
-    fetch('/api/crypto')
-      .then((res) => res.json())
-      .then((data) => {
-        const mappedCoinData = data.data.map((coin) => mapCoinData(coin));
-        setCoinData(mappedCoinData);
-      });
-  }, []);
-  return (
-    <CoinsOverview coins={coinData} title="Cryptocurrency Realtime price" />
-  );
+const router = createBrowserRouter([{ path: '*', Component: Root }]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
 }
 
-export default App;
+function Root() {
+  return (
+    <Routes>
+      <Route path="/" element={<RealtimeUpdatePage />} />
+      <Route path="/crypto" element={<RealtimeUpdatePage />} />
+    </Routes>
+  );
+}

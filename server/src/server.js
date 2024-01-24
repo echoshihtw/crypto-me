@@ -2,61 +2,42 @@ import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
 import cors from "cors";
-import { Server } from "socket.io";
-import * as http from "http";
 
 const app = express();
 dotenv.config();
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(cors());
+app.use(cors())
 const PORT = parseInt(process.env.PORT, 10) || 3001;
 
-const server = http.createServer(app);
-const io = new Server(server);
-
-// Socket.IO connection handler
-io.on("connection", (socket) => {
-  console.log("A user connected");
-
-  // Disconnect event
-  socket.on("disconnect", () => {
-    console.log("User disconnected");
-  });
-});
-
 app.get("/api/crypto", async (req, res) => {
-  let response;
-  try {
-    const coinMarketCapUrl = `${process.env.CMC_API_URL}/quotes/latest?symbol=BTC,ETH,ITC,XMR,XRP,DOGE,DASH,MAID,LSK,SJCX`;
-    const options = {
-      headers: {
-        "X-CMC_PRO_API_KEY": process.env.CMC_PRO_API_KEY,
-      },
-    };
-    response = await axios.get(coinMarketCapUrl, options);
-    const coinData = response.data.data;
-    const formattedData = Object.keys(coinData).map((key) => ({
-      ...coinData[key],
-    }));
-
-    // Emit the data to the "crypto" channel
-    io.emit("crypto", formattedData);
-
-    res.json({ data: formattedData });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+    let response;
+    try {
+        const coinMarketCapUrl = `${process.env.CMC_API_UTL}/quotes/latest?symbol=BTC,ETH,ITC,XMR,XRP,DOGE,DASH,MAID,LSK,SJCX`;
+        const options = {
+            headers: {
+                "X-CMC_PRO_API_KEY": process.env.CMC_PRO_API_KEY,
+            },
+        };
+        response = await axios.get(coinMarketCapUrl, options);
+        const coinData = response.data.data;
+        const formattedData = Object.keys(coinData).map((key) => ({
+            ...coinData[key],
+        }));
+        res.json({data: formattedData});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: "Internal Server Error"});
+    }
 });
 
 app.use((req, res, next) => {
-  res.status(404).send("404 Not Found");
+    res.status(404).send("404 Not Found");
 });
 app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+    console.log(`Server listening on ${PORT}`);
 });
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
+app.get("/", (req, res) => {
+    res.json({message: "Hello from server!"});
 });

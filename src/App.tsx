@@ -1,23 +1,26 @@
 import React from 'react';
-import RealtimeUpdatePage from './containers/RealtimeUpdatePage';
-import {
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-} from 'react-router-dom';
+import logo from './logo.svg';
+import './App.css';
 
-const router = createBrowserRouter([{ path: '*', Component: Root }]);
-
-export default function App() {
-  return <RouterProvider router={router} />;
-}
-
-function Root() {
+function App() {
   return (
-    <Routes>
-      <Route path="/" element={<RealtimeUpdatePage />} />
-      <Route path="/crypto" element={<RealtimeUpdatePage />} />
-    </Routes>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
+
+export default App;

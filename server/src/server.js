@@ -1,43 +1,47 @@
-import express from "express";
-import axios from "axios";
-import dotenv from "dotenv";
-import cors from "cors";
+const express = require("express");
+const http = require("http");
+const Socket = require("socket.io");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const { fetchDataFromApi } = require("./apiService");
 
 const app = express();
-dotenv.config();
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
-app.use(cors())
 const PORT = parseInt(process.env.PORT, 10) || 3001;
+dotenv.config();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 
-app.get("/api/crypto", async (req, res) => {
-    let response;
-    try {
-        const coinMarketCapUrl = `${process.env.CMC_API_UTL}/quotes/latest?symbol=BTC,ETH,ITC,XMR,XRP,DOGE,DASH,MAID,LSK,SJCX`;
-        const options = {
-            headers: {
-                "X-CMC_PRO_API_KEY": process.env.CMC_PRO_API_KEY,
-            },
-        };
-        response = await axios.get(coinMarketCapUrl, options);
-        const coinData = response.data.data;
-        const formattedData = Object.keys(coinData).map((key) => ({
-            ...coinData[key],
-        }));
-        res.json({data: formattedData});
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({error: "Internal Server Error"});
+const server = http.createServer(app);
+
+server.listen(PORT);
+
+// Socket setup
+const io = Socket(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+// Set up Socket.io connection
+io.on("connection", (socket) => {
+  console.log("Client connected");
+
+  // Send initial data to the client upon connection
+  fetchDataFromApi().then((data) => {
+    if (data !== null) {
+      io.emit("initialData", data);
+      console.log("initialData", data);
     }
+  });
 });
 
-app.use((req, res, next) => {
-    res.status(404).send("404 Not Found");
-});
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-});
-
-app.get("/", (req, res) => {
-    res.json({message: "Hello from server!"});
-});
+const emitDataToClients = async () => {
+  const data = await fetchDataFromApi();
+  if (data !== null) {
+    io.emit("dataUpdate", data);
+    console.log("dataUpdate");
+  }
+};
+setInterval(emitDataToClients, 60000);

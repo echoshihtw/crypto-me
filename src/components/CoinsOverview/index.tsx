@@ -16,8 +16,8 @@ const CoinsOverview = ({ title, coins, isLoading }: CoinsOverviewProps) => {
     <Frame
       title={title}
       content={
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-          {isLoading
+        <div className="grid grid-cols-1 place-items-center gap-2 md:grid-cols-2 lg:grid-cols-3">
+          {isLoading || coins.length < 1
             ? defaultArray.map((index) => <CoinSkeleton key={index} />)
             : coins.map((coin) => <CoinCard coin={coin} key={coin.name} />)}
         </div>

@@ -19,20 +19,20 @@ server.listen(PORT);
 // Socket setup
 const io = Socket(server, {
   cors: {
-    origin: "*",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
 
 // Set up Socket.io connection
 io.on("connection", (socket) => {
-  console.log("Client connected");
+  console.log("client connected");
 
   // Send initial data to the client upon connection
   fetchDataFromApi().then((data) => {
     if (data !== null) {
       io.emit("initialData", data);
-      console.log("initialData", data);
+      console.log("initialData emitted");
     }
   });
 });
@@ -40,8 +40,8 @@ io.on("connection", (socket) => {
 const emitDataToClients = async () => {
   const data = await fetchDataFromApi();
   if (data !== null) {
-    io.emit("dataUpdate", data);
-    console.log("dataUpdate");
+    io.emit("updateData", data);
+    console.log("updateData emitted");
   }
 };
 setInterval(emitDataToClients, 60000);

@@ -6,6 +6,7 @@ import {
   RouterProvider,
   Routes,
 } from 'react-router-dom';
+import ErrorDialog from './containers/ErrorDialog';
 
 const router = createBrowserRouter([{ path: '*', Component: Root }]);
 
@@ -15,9 +16,13 @@ export default function App() {
 
 function Root() {
   return (
-    <Routes>
-      <Route path="/" element={<RealtimeUpdatePage />} />
-      <Route path="/crypto" element={<RealtimeUpdatePage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<RealtimeUpdatePage />} />
+        <Route path="/crypto" element={<RealtimeUpdatePage />} />
+      </Routes>
+
+      <ErrorDialog />
+    </>
   );
 }

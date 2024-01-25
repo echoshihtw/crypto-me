@@ -1,10 +1,6 @@
 import React, { memo, useEffect } from 'react';
 import CoinsOverview from '../components/CoinsOverview';
-import {
-  getCryptoError,
-  selectCryptoData,
-  selectIsLoading,
-} from '../app/selectors/crypto';
+import { selectCryptoData, selectIsLoading } from '../app/selectors/crypto';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { setCryptoData, setError } from '../app/reducers/crypto';
 import io from 'socket.io-client';
@@ -14,12 +10,15 @@ const RealtimeUpdatePage = () => {
   const dispatch = useAppDispatch();
   const cryptoData = useAppSelector(selectCryptoData);
   const isLoading = useAppSelector(selectIsLoading);
-  const error = useAppSelector(getCryptoError);
 
   useEffect(() => {
     const socket = io('http://localhost:3001', {});
-
     socket.connect();
+
+    socket.on('connect_error', () => {
+      dispatch(setError('something went wrong....please try again later'));
+    });
+
     socket.on('initialData', (data) => {
       const mappedData = data.map((item: any) => mapCoinData(item));
       dispatch(setCryptoData(mappedData));

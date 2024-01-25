@@ -30,5 +30,5 @@ module.exports = {
       caption: ["12px", "20px"],
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

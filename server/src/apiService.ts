@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 
-interface CoinData {
+export interface CoinData {
   [key: string]: any;
 }
 
-interface ApiResponse {
+export interface ApiResponse {
   data: {
     data: CoinData;
   };

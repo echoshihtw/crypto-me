@@ -1,11 +1,6 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,5 +17,9 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "ts-node": {
+    "esm": true
+    // «———— enabling ESM for ts-node
+  }
 }

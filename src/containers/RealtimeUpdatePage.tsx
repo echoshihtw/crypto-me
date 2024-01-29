@@ -12,7 +12,7 @@ const RealtimeUpdatePage = () => {
   const isLoading = useAppSelector(selectIsLoading);
 
   useEffect(() => {
-    const socket = io('http://localhost:3001', {});
+    const socket = io('http://localhost:3003', {});
     socket.connect();
 
     socket.on('connect_error', () => {

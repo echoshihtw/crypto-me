@@ -1,16 +1,16 @@
 import React, { memo } from 'react';
-import { CoinItem } from '../../models/coinMapper';
+import { CoinItem } from '../../models/CoinMapper';
 
 interface CoinCardProps {
   coin: CoinItem;
 }
 
 const CoinCard = ({ coin }: CoinCardProps) => {
-  const { name, price, volume_24, volume_change_24h } = coin;
+  const { name, price, volume_24, percent_change_24h } = coin;
   const labelClass = 'text-grey text-caption font-medium w-fit';
   const valueClass = 'text-grey opacity-75 text-caption font-medium w-fit';
   const changeDigitColor =
-    volume_change_24h && volume_change_24h > 0
+    percent_change_24h && percent_change_24h > 0
       ? 'text-price-high'
       : 'text-price-low';
   return (
@@ -26,7 +26,7 @@ const CoinCard = ({ coin }: CoinCardProps) => {
           <div className="flex flex-col">
             <div className={labelClass}>change:</div>
             <div className={`text-caption ${changeDigitColor} w-fit`}>
-              {volume_change_24h || '-'}
+              {percent_change_24h || '-'}
             </div>
           </div>
         </div>

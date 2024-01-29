@@ -11,7 +11,7 @@ const mockCoin = {
 
 describe('CoinCard Component', () => {
   test('renders CoinCard with correct data', () => {
-    const {getByText} = render(<CoinCard coin={mockCoin}/>);
+    const { getByText } = render(<CoinCard coin={mockCoin} />);
 
     const coinName = screen.getByText('Bitcoin');
     expect(coinName).toBeInTheDocument();

@@ -1,0 +1,13 @@
+service: crypto-me-test
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+functions:
+  hello:
+    handler: app.handler
+    events:
+      - http:
+          path: hello
+          method: get

@@ -19,7 +19,7 @@ server.listen(PORT);
 // Socket setup
 const io = Socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });

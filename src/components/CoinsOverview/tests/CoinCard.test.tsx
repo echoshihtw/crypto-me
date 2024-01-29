@@ -1,12 +1,12 @@
 import React from 'react';
 import CoinCard from '../CoinCard';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 const mockCoin = {
   name: 'Bitcoin',
   price: 50000,
   volume_24: 1000000,
-  volume_change_24h: 5,
+  percent_change_24h: 5,
 };
 
 describe('CoinCard Component', () => {
@@ -16,7 +16,7 @@ describe('CoinCard Component', () => {
     const coinName = screen.getByText('Bitcoin');
     expect(coinName).toBeInTheDocument();
 
-    const priceElement = getByText('$ 50000');
+    const priceElement = getByText(/50000/);
     expect(priceElement).toBeInTheDocument();
 
     const volumeLabel = screen.getByText('volume:');

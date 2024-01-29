@@ -1,10 +1,10 @@
+import '@testing-library/jest-dom';
 import {
   ChangeZeroToUndefined,
   CoinDataProps,
   CoinItem,
   mapCoinData,
 } from '../CoinMapper';
-import '@testing-library/jest-dom';
 
 describe('mapCoinData function', () => {
   test('correctly maps CoinDataProps to CoinItem with zero values converted to undefined', () => {

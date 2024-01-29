@@ -4,7 +4,7 @@ import { selectCryptoData, selectIsLoading } from '../app/selectors/crypto';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { setCryptoData, setError } from '../app/reducers/crypto';
 import io from 'socket.io-client';
-import { mapCoinData } from '../models/coinMapper';
+import { mapCoinData } from '../models/CoinMapper';
 
 const RealtimeUpdatePage = () => {
   const dispatch = useAppDispatch();

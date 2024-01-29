@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CoinItem } from '../../models/coinMapper';
+import { CoinItem } from '../../models/CoinMapper';
 
 interface CryptoState {
   data: CoinItem[];

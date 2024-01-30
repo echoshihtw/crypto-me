@@ -2,12 +2,16 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
+  roots: ["<rootDir>/src/tests"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],
+
   transform: {
-    "^.+\\.ts?$": "ts-jest",
+    "^.+\\.tsx?$": "ts-jest",
   },
-  setupFiles: ["dotenv/config"],
-  testMatch: ["**/**/*.test.ts"],
-  verbose: true,
-  forceExit: false,
+  testMatch: ["**/tests/**/*.test.ts"],
+  globals: {
+    "ts-jest": {
+      tsconfig: "tsconfig.json",
+    },
+  },
 };

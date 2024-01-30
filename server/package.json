@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node.js backend to fetch real-time crypto prices and communicate with client using Socket.io",
   "main": "dist/app.js",
   "scripts": {
     "start": "ts-node --esm src/server.ts",

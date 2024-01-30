@@ -2,19 +2,42 @@
 
 
 
-## How to use
+## Getting Started
 
 To start the project locally, 
-1. clone the repo and run `npm run install:all` the project root directory to install dependencies for both client and server.
-2. create your own .env file in the server directory and add your own API key from [CoinMarketCap](https://coinmarketcap.com/api/) as `CMC_PRO_API_KEY=your_api_key`
-3. run `npm start` on the root directory to start the project for both client and server.
-4. open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
+1. clone the repo 
+    ```
+    git clone https://github.com/echoshihtw/crypto-me.git
+    ```
+2. Install dependencies from the project root directory
+    ```
+    cd crypto-me
+   
+   # (recommended) for both client and server 
+    npm run install:all
+    
+    # client 
+    npm run install:client
+   
+   # server
+    npm run install:server
+    ```
+3. create your own .env file in the server directory and add your own API key from [CoinMarketCap](https://coinmarketcap.com/api/) 
+    ```
+    CMC_PRO_API_KEY=your_api_key
+    ```
+4. start the project
+    ```
+    # (recommended) for both client and server 
+    npm start
+   
+   # client
+   npm run start:client
+   
+   # server
+    npm run start:server
+     ```
+5. open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
 ## Project Structure

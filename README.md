@@ -46,7 +46,7 @@ crypto-me/
 │
 ├── client/                                # Frontend directory
 │   ├── public/                            # Public assets
-│   │   ├── index.html                     # Main HTML file
+│   │   ├── server.html                     # Main HTML file
 │   │   └── favicon.ico                    # Favicon
 │   │
 │   ├── src/                               # Frontend source code
@@ -54,7 +54,7 @@ crypto-me/
 │   │   │   ├── CoinOverview/              # Example component
 │   │   │   └── ...
 │   │   │
-│   │   ├── app/                           # Redux-toolkit store
+│   │   ├── server/                        # Redux-toolkit store
 │   │   │   ├── reducers/                  # Redux-toolkit reducers
 │   │   │   │   ├── tests/                 # Unit test for reducers file
 │   │   │   │   ├── crypto.ts              # Reducer for crypto data
@@ -79,10 +79,10 @@ crypto-me/
 │   │   │   └── ...
 │   │   │
 │   │   ├── App.tsx                        # Main React application component
-│   │   ├── index.tsx                      # Entry point for React application
-│   │   ├── index.css                      # Global styles
+│   │   ├── server.tsx                     # Entry point for React application
+│   │   ├── server.css                     # Global styles
 │   │   ├── configureStore.ts              # Redux-toolkit store configuration
-│   │   └── index.tsx                      # Entry point for React application
+│   │   └── server.tsx                     # Entry point for React application
 │   │
 │   ├── package.json                       # Frontend dependencies and scripts
 │   ├── tailwind.config.js                 # Tailwind configuration file
@@ -92,17 +92,32 @@ crypto-me/
 │   └── ...
 │
 ├── server/                                # Backend directory
-│   ├── src/                               # Backend source code
-│   │   ├── tests/                         # Unit tests
-│   │   ├── server.ts                      # Backend server entry point
-│   │   ├── apiService.ts                  # API service
-│   │   └── ...
+│   ├── src/
+│   ├── config/
+│   │   └── config.ts                      # Configuration settings, including API keys
 │   │
-│   └── package.json                       # Backend dependencies and scripts
-│   ├── tsconfig.json                      # Typescript configuration file
-│   ├── jest.config.js                     # Jest configuration file
-│   ├── tsconfig.ts-node.json              # Jest Typescript configuration file
+│   ├── types/
+│   │   └── types.ts                       # TypeScript types and interfaces
+│   │
+│   ├── services/
+│   │   └── apiService.ts                  # Service to handle API requests to CoinMarketCap
+│   │
+│   ├── sockets/
+│   │   └── socketHandler.ts               # Socket.io setup and event handlers
+│   │
+│   └── app.ts                             # Main server application
 │
+├── tests/
+│   ├── config/
+│   │   └── config.test.ts                 # Unit tests for Configuration settings
+│   │
+│   ├── services/
+│   │   └── apiService.test.ts             # Unit tests for API service
+│   │
+│   └── sockets/
+│       └── socketHandler.test.ts          # Unit tests for socket handling
+│
+├── tsconfig.json                          # TypeScript configuration
 ├── package.json                           # Project dependencies and scripts
 └── README.md                              # Project documentation
 

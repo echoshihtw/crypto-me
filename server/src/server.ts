@@ -1,52 +1,26 @@
-import express, { Application } from "express";
+import express from "express";
 import http from "http";
-import { Server, Socket } from "socket.io";
-import dotenv from "dotenv";
+import { fetchCryptoPrices } from "./services/apiService";
+import { setupSocketServer } from "./sockets/socketHandler.ts";
 import cors from "cors";
-import fetchDataFromApi from "./apiService";
 
-dotenv.config();
-
-const app: Application = express();
-const PORT: number = parseInt(process.env.PORT as string, 10) || 3003;
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+const app = express();
 app.use(cors());
 
-const server: http.Server = http.createServer(app);
+const server = http.createServer(app);
+const io = setupSocketServer(server);
 
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-// Socket setup
-const io: Server = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
-});
-
-// Set up Socket.io connection
-io.on("connection", (socket: Socket) => {
-  console.log("Client connected");
-
-  // Send initial data to the client upon connection
-  fetchDataFromApi().then((data: any) => {
-    if (data !== null) {
-      socket.emit("initialData", data);
-      console.log("Initial data emitted");
-    }
-  });
-});
-
-const emitDataToClients = async () => {
-  const data = await fetchDataFromApi();
-  if (data !== null) {
-    io.emit("updateData", data);
-    console.log("Update data emitted");
+setInterval(async () => {
+  try {
+    const cryptoPrices = await fetchCryptoPrices();
+    console.log("cryptoPrices", cryptoPrices);
+    io.emit("cryptoPricesUpdate", cryptoPrices);
+  } catch (error) {
+    console.error("Failed to fetch crypto prices:", error);
   }
-};
+}, 60000);
 
-setInterval(emitDataToClients, 60000);
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 import RealtimeUpdatePage from '../RealtimeUpdatePage';
@@ -26,10 +26,8 @@ describe('RealtimeUpdatePage Component', () => {
       </Provider>,
     );
 
-    await waitFor(() => {
-      expect(
-        screen.getByText('Cryptocurrency Realtime price'),
-      ).toBeInTheDocument();
-    });
+    expect(
+      screen.getByText('Cryptocurrency Realtime Price'),
+    ).toBeInTheDocument();
   });
 });

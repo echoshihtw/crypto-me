@@ -11,8 +11,17 @@ if (process.env.NODE_ENV === "test") {
   dotenv.config({ path: ".env" });
 }
 
+const PORT: number =
+  process.env.NODE_ENV === "test"
+    ? 420
+    : parseInt(process.env.PORT as string, 10) || 3003;
+
 export const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
 
 const server = http.createServer(app);
 const io = setupSocketServer(server);
@@ -20,14 +29,13 @@ const io = setupSocketServer(server);
 setInterval(async () => {
   try {
     const cryptoPrices = await fetchCryptoPrices();
-    console.log("cryptoPrices", cryptoPrices);
     io.emit("cryptoPricesUpdate", cryptoPrices);
   } catch (error) {
     console.error("Failed to fetch crypto prices:", error);
   }
 }, 60000);
 
-const PORT = process.env.PORT || 3003;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log("process.env.PORT ", process.env.PORT);
 });

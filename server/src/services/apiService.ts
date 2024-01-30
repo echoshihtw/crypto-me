@@ -41,7 +41,6 @@ export async function fetchCryptoPrices(): Promise<CryptoPriceInfo[]> {
         });
       }
     });
-
     return prices;
   } catch (error) {
     console.error("Error fetching crypto prices:", error);

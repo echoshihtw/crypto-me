@@ -4,7 +4,6 @@ module.exports = {
   testEnvironment: "node",
   roots: ["<rootDir>/src/tests"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],
-
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },

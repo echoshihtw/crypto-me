@@ -3,8 +3,15 @@ import http from "http";
 import { fetchCryptoPrices } from "./services/apiService";
 import { setupSocketServer } from "./sockets/socketHandler.ts";
 import cors from "cors";
+import dotenv from "dotenv";
 
-const app = express();
+if (process.env.NODE_ENV === "test") {
+  dotenv.config({ path: ".env.test" });
+} else {
+  dotenv.config({ path: ".env" });
+}
+
+export const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
@@ -20,7 +27,7 @@ setInterval(async () => {
   }
 }, 60000);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3003;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

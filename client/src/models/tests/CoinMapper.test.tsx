@@ -11,23 +11,16 @@ describe('mapCoinData function', () => {
     const mockData: CoinDataProps = {
       id: 'bitcoin',
       name: 'Bitcoin',
-      quote: {
-        USD: {
-          price: 50000,
-          volume_24h: 1000000,
-          percent_change_24h: 0,
-        },
-      },
+      price: 50000,
+      volume_24h: 1000000,
+      percent_change_24h: 0,
     };
 
     const mappedData: CoinItem = mapCoinData(mockData);
 
-    // Check if data is correctly mapped
     expect(mappedData.name).toBe('Bitcoin');
     expect(mappedData.price).toBe(50000);
     expect(mappedData.volume_24).toBe(1000000);
-
-    // Check if zero values are converted to undefined
     expect(mappedData.percent_change_24h).toBeUndefined();
   });
 

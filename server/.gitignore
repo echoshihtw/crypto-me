@@ -6,4 +6,4 @@
 /coverage
 
 # production
-/build!/.env
+!/.env.test

@@ -8,13 +8,9 @@ export interface CoinItem {
 export interface CoinDataProps {
   id: string;
   name: string;
-  quote: {
-    USD: {
-      price: number;
-      volume_24h: number;
-      percent_change_24h: number;
-    };
-  };
+  price: number;
+  volume_24h: number;
+  percent_change_24h: number;
 }
 
 export function ChangeZeroToUndefined(value: number): number | undefined {
@@ -27,10 +23,8 @@ export function ChangeZeroToUndefined(value: number): number | undefined {
 export const mapCoinData = (data: CoinDataProps): CoinItem => {
   return {
     name: data.name,
-    price: data.quote.USD.price,
-    volume_24: ChangeZeroToUndefined(data.quote.USD.volume_24h),
-    percent_change_24h: ChangeZeroToUndefined(
-      +data.quote.USD.percent_change_24h,
-    ),
+    price: data.price,
+    volume_24: ChangeZeroToUndefined(data.volume_24h),
+    percent_change_24h: ChangeZeroToUndefined(+data.percent_change_24h),
   };
 };

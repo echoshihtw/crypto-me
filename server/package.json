@@ -1,12 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "src",
+  "description": "Node.js backend to fetch real-time crypto prices and communicate with client using Socket.io",
+  "main": "dist/app.js",
   "scripts": {
     "start": "ts-node --esm src/server.ts",
+    "dev": "nodemon",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test jest --watchAll --coverage",
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -20,8 +22,18 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.11",
     "@types/node": "^20.11.5",
+    "@types/socket.io": "^3.0.2",
+    "@types/supertest": "^6.0.2",
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.3",
+    "socket.io-client": "^4.7.4",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2"
   }
 }

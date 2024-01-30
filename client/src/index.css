@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-    @apply h-screen w-screen;
-    background-color: white;
+    @apply h-full w-full;
+    background: linear-gradient(to bottom right, hsl(149.59, 87.85%, 51.57%), hsl(258.07, 100%, 48.82%));
     display: grid;
     place-items: center;
 }

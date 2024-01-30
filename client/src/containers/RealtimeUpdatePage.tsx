@@ -12,21 +12,21 @@ const RealtimeUpdatePage = () => {
   const isLoading = useAppSelector(selectIsLoading);
 
   useEffect(() => {
-    const socket = io('http://localhost:3003', {});
+    const socket = io('http://localhost:3003');
     socket.connect();
+
+    socket.on('cryptoPrices', (data) => {
+      const mappedData = data.map((item: any) => mapCoinData(item));
+      dispatch(setCryptoData(mappedData));
+    });
+
+    socket.on('cryptoPricesUpdate', (data) => {
+      const mappedData = data.map((item: any) => mapCoinData(item));
+      dispatch(setCryptoData(mappedData));
+    });
 
     socket.on('connect_error', () => {
       dispatch(setError('something went wrong....please try again later'));
-    });
-
-    socket.on('initialData', (data) => {
-      const mappedData = data.map((item: any) => mapCoinData(item));
-      dispatch(setCryptoData(mappedData));
-    });
-
-    socket.on('dataUpdate', (data) => {
-      const mappedData = data.map((item: any) => mapCoinData(item));
-      dispatch(setCryptoData(mappedData));
     });
 
     // Optional: Handle disconnect event
@@ -40,11 +40,13 @@ const RealtimeUpdatePage = () => {
   }, [dispatch]);
 
   return (
-    <CoinsOverview
-      coins={cryptoData}
-      title="Cryptocurrency Realtime price"
-      isLoading={isLoading}
-    />
+      <div className="h-full w-full grid place-items-center p-6">
+        <CoinsOverview
+            coins={cryptoData}
+            title="Cryptocurrency Realtime Price"
+            isLoading={isLoading}
+        />
+      </div>
   );
 };
 

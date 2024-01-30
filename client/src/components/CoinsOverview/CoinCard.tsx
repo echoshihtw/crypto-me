@@ -9,13 +9,16 @@ const CoinCard = ({ coin }: CoinCardProps) => {
   const { name, price, volume_24, percent_change_24h } = coin;
   const labelClass = 'text-grey text-caption font-medium w-fit';
   const valueClass = 'text-grey opacity-75 text-caption font-medium w-fit';
-  const changeDigitColor =
-    percent_change_24h && percent_change_24h > 0
-      ? 'text-price-high'
-      : 'text-price-low';
+  let changeDigitColor = 'text-grey';
+  if (percent_change_24h && percent_change_24h > 0) {
+    changeDigitColor = 'bg-price-high/65 px-[4px]';
+  } else if (percent_change_24h && percent_change_24h < 0) {
+    changeDigitColor = 'bg-price-low/40 px-[4px]';
+  }
+
   return (
     <>
-      <div className="border border-grey p-1 flex flex-col rounded-[4px] h-[118px] w-[230px]">
+      <div className="p-1 flex flex-col h-[118px] w-[230px] bg-white/95 backdrop-blur-md backdrop-brightness-150 ">
         <div className="text-h3 w-fit font-medium">{name}</div>
         <div className="text-yellow text-body1 w-fit font-medium">${price}</div>
         <div className="flex gap-1">

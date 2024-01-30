@@ -22,7 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "jest --env=jsdom",
+    "test": "jest --env=jsdom --watchAll --coverage",
     "prettify": "prettier --write"
   },
   "proxy": "http://localhost:3001",

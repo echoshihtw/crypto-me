@@ -11,6 +11,7 @@ module.exports = {
       "price-low": "#C7504C",
       grey: "#a1a0a0",
       lightGrey: "#e2e8f0",
+      white: "#fafafa",
     },
     spacing: {
       1: "8px",

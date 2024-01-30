@@ -12,7 +12,7 @@ interface ApiResponse {
 
 const fetchDataFromApi = async (): Promise<CoinData[] | null> => {
   try {
-    const coinMarketCapUrl = `${process.env.CMC_API_URL}/quotes/latest?symbol=BTC,ETH,ITC,XMR,XRP,DOGE,DASH,MAID,LSK,SJCX`;
+    const coinMarketCapUrl = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC,ETH,ITC,XMR,XRP,DOGE,DASH,MAID,LSK,SJCX`;
     const options = {
       headers: {
         "X-CMC_PRO_API_KEY": process.env.CMC_PRO_API_KEY,

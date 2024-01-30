@@ -40,13 +40,13 @@ const RealtimeUpdatePage = () => {
   }, [dispatch]);
 
   return (
-      <div className="h-full w-full grid place-items-center p-6">
-        <CoinsOverview
-            coins={cryptoData}
-            title="Cryptocurrency Realtime Price"
-            isLoading={isLoading}
-        />
-      </div>
+    <div className="h-full w-full grid place-items-center p-6">
+      <CoinsOverview
+        coins={cryptoData}
+        title="Cryptocurrency Realtime Price"
+        isLoading={isLoading}
+      />
+    </div>
   );
 };
 

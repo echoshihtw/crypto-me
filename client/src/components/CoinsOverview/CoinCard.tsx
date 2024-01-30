@@ -18,10 +18,10 @@ const CoinCard = ({ coin }: CoinCardProps) => {
 
   return (
     <>
-      <div className="p-1 flex flex-col h-[118px] w-[230px] bg-white/95 backdrop-blur-md backdrop-brightness-150 ">
+      <div className="p-1 flex flex-col w-full h-[118px] sm:w-[230px] bg-white/95 backdrop-blur-md backdrop-brightness-150 ">
         <div className="text-h3 w-fit font-medium">{name}</div>
         <div className="text-yellow text-body1 w-fit font-medium">${price}</div>
-        <div className="flex gap-1">
+        <div className="flex gap-1 justify-between">
           <div className="flex flex-col w-[125px]">
             <div className={labelClass}>volume:</div>
             <div className={valueClass}>{volume_24 || '-'}</div>

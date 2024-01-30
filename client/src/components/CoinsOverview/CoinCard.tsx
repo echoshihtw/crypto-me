@@ -6,7 +6,7 @@ interface CoinCardProps {
 }
 
 const CoinCard = ({ coin }: CoinCardProps) => {
-  const { name, price, volume_24, percent_change_24h } = coin;
+  const { name, price, volume_24h, percent_change_24h } = coin;
   const labelClass = 'text-grey text-caption font-medium w-fit';
   const valueClass = 'text-grey opacity-75 text-caption font-medium w-fit';
   let changeDigitColor = 'text-grey';
@@ -24,7 +24,7 @@ const CoinCard = ({ coin }: CoinCardProps) => {
         <div className="flex gap-1 justify-between">
           <div className="flex flex-col w-[125px]">
             <div className={labelClass}>volume:</div>
-            <div className={valueClass}>{volume_24 || '-'}</div>
+            <div className={valueClass}>{volume_24h || '-'}</div>
           </div>
           <div className="flex flex-col">
             <div className={labelClass}>change:</div>

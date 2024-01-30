@@ -39,7 +39,7 @@ export async function fetchCryptoPrices(): Promise<CryptoPriceInfo[]> {
           symbol: data[crypto].symbol,
           price: data[crypto].quote.USD.price,
           percent_change_24h: data[crypto].quote.USD.percent_change_24h,
-          volume_24: data[crypto].quote.USD.volume_24h,
+          volume_24h: data[crypto].quote.USD.volume_24h,
         });
       }
     });

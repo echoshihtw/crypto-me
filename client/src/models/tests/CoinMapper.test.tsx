@@ -20,7 +20,7 @@ describe('mapCoinData function', () => {
 
     expect(mappedData.name).toBe('Bitcoin');
     expect(mappedData.price).toBe(50000);
-    expect(mappedData.volume_24).toBe(1000000);
+    expect(mappedData.volume_24h).toBe(1000000);
     expect(mappedData.percent_change_24h).toBeUndefined();
   });
 

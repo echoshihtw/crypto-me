@@ -1,7 +1,7 @@
 export interface CoinItem {
   name: string;
   price: number;
-  volume_24: number | undefined;
+  volume_24h: number | undefined;
   percent_change_24h: number | undefined;
 }
 
@@ -21,10 +21,11 @@ export function ChangeZeroToUndefined(value: number): number | undefined {
 }
 
 export const mapCoinData = (data: CoinDataProps): CoinItem => {
+  console.log('data.volume_24h', data.volume_24h);
   return {
     name: data.name,
     price: data.price,
-    volume_24: ChangeZeroToUndefined(data.volume_24h),
+    volume_24h: ChangeZeroToUndefined(data.volume_24h),
     percent_change_24h: ChangeZeroToUndefined(+data.percent_change_24h),
   };
 };

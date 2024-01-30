@@ -8,13 +8,13 @@ describe('Crypto Selectors', () => {
         {
           name: 'Bitcoin',
           price: 50000,
-          volume_24: 1000000,
+          volume_24h: 1000000,
           percent_change_24h: 5,
         },
         {
           name: 'Ethereum',
           price: 20000,
-          volume_24: 1500000,
+          volume_24h: 1500000,
           percent_change_24h: -5,
         },
       ],

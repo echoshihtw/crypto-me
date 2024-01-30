@@ -45,14 +45,14 @@ describe("API Service", () => {
         symbol: "BTC",
         price: 50000,
         percent_change_24h: 3.68388705,
-        volume_24: 24631444223,
+        volume_24h: 24631444223,
       },
       {
         name: "Ethereum",
         symbol: "ETH",
         price: 4000,
         percent_change_24h: 2.91933861,
-        volume_24: 9653744743,
+        volume_24h: 9653744743,
       },
     ]);
   });

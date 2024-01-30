@@ -3,5 +3,5 @@ export interface CryptoPriceInfo {
   price: number;
   symbol: string;
   percent_change_24h: number;
-  volume_24: number;
+  volume_24h: number;
 }

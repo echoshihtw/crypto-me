@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 const mockCoin = {
   name: 'Bitcoin',
   price: 50000,
-  volume_24: 1000000,
+  volume_24h: 1000000,
   percent_change_24h: 5,
 };
 

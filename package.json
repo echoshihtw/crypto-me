@@ -1,43 +1,33 @@
 {
   "name": "crypto-me",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.70",
-    "@types/react": "^18.2.47",
-    "@types/react-dom": "^18.2.18",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "server/src/server.ts",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "install:all": "concurrently \"npm run install:client\" \"npm run install:server\"",
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
+    "start:client": "cd client && npm start",
+    "start:server": "cd server && npm start",
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "test:client": "cd client && npm run test",
+    "test:server": "cd server && npm run test",
+    "test": "npm run test:client && npm run test:server",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "build": "npm run build:client && npm run build:server"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/echoshihtw/crypto-me.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/echoshihtw/crypto-me/issues"
+  },
+  "homepage": "https://github.com/echoshihtw/crypto-me#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

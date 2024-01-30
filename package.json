@@ -1,7 +1,7 @@
 {
-  "name": "crypto-me",
+  "name": "crypto-price-tracker",
   "version": "1.0.0",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "Realtime Crypto Price Tracker",
   "main": "server/src/server.ts",
   "scripts": {
     "install:all": "concurrently \"npm run install:client\" \"npm run install:server\"",

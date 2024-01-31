@@ -13,7 +13,6 @@ To start the project locally,
     ```
     cd crypto-me
 
-    # Install root dependencies
     npm install
     ```
 3. Install dependencies for client and server

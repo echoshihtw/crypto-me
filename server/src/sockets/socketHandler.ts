@@ -1,6 +1,6 @@
 import { Server as SocketIOServer } from "socket.io";
 import http from "http";
-import { fetchCryptoPrices } from "../services/apiService.ts";
+import { fetchCryptoPrices } from "../services/apiService";
 
 export function setupSocketServer(server: http.Server) {
   const io = new SocketIOServer(server, {

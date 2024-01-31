@@ -1,9 +1,9 @@
 import request from "supertest";
 import http from "http";
-import { app } from "../server.ts";
-import { fetchCryptoPrices } from "../services/apiService.ts";
+import { app } from "../server";
+import { fetchCryptoPrices } from "../services/apiService";
 
-jest.mock("../services/apiService.ts"); // Mock the apiService
+jest.mock("../services/apiService"); // Mock the apiService
 
 describe("App", () => {
   let server: http.Server;

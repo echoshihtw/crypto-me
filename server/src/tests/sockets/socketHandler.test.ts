@@ -1,6 +1,6 @@
 import http from "http";
 import { Server as SocketIOServer } from "socket.io";
-import { setupSocketServer } from "../../sockets/socketHandler.ts";
+import { setupSocketServer } from "../../sockets/socketHandler";
 
 describe("Socket Handler", () => {
   let httpServer: http.Server;

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply h-full w-full;
+    @apply sm:h-screen w-screen overflow-y-scroll;
     background: linear-gradient(to bottom right, hsl(149.59, 87.85%, 51.57%), hsl(258.07, 100%, 48.82%));
     display: grid;
     place-items: center;

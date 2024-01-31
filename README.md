@@ -1,6 +1,8 @@
 # Crypto-Me: a realtime cryptocurrency price list
 
+## Recommended Node.js Version
 
+This project is best compatible with Node.js version 18.x and above.
 
 ## Getting Started
 

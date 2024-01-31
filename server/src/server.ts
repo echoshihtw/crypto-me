@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === "test") {
 
 const PORT: number =
   process.env.NODE_ENV === "test"
-    ? 420
+    ? 4200
     : parseInt(process.env.PORT as string, 10) || 3003;
 
 export const app = express();

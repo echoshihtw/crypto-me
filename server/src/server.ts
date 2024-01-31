@@ -1,7 +1,7 @@
 import express from "express";
 import http from "http";
 import { fetchCryptoPrices } from "./services/apiService";
-import { setupSocketServer } from "./sockets/socketHandler.ts";
+import { setupSocketServer } from "./sockets/socketHandler";
 import cors from "cors";
 import dotenv from "dotenv";
 

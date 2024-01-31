@@ -1,4 +1,4 @@
-import { config } from "../../config/config.ts";
+import { config } from "../../config/config";
 
 describe("Config", () => {
   it("should load environment variables correctly", () => {

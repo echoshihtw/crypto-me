@@ -7,7 +7,7 @@
     "start": "ts-node --esm src/server.ts",
     "dev": "nodemon",
     "build": "tsc",
-    "test": "cross-env NODE_ENV=test jest --watchAll --coverage",
+    "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "jest --watch"
   },
   "keywords": [],

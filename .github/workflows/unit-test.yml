@@ -26,4 +26,4 @@ jobs:
 
       - name: Run tests
         run: |
-          cd client && npm run test
+          npm run test -- --watch=false --browsers=ChromeHeadless

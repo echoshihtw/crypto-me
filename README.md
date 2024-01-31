@@ -26,14 +26,7 @@ To start the project locally,
     ```
 5. start the project
     ```
-    # (recommended) for both client and server 
     npm start
-   
-   # client
-   npm run start:client
-   
-   # server
-    npm run start:server
      ```
 6. open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 

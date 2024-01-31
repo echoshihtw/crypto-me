@@ -27,3 +27,7 @@ jobs:
       - name: Run tests
         run: |
           cd client && npm run test
+
+      - name: Return to root
+        run: |
+          ../

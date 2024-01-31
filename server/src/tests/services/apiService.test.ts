@@ -38,7 +38,6 @@ describe("API Service", () => {
     mockedAxios.get.mockResolvedValue(mockResponse);
 
     const result = await fetchCryptoPrices();
-    console.log("result", result);
     expect(result).toEqual([
       {
         name: "Bitcoin",

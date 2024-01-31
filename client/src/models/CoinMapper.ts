@@ -21,7 +21,6 @@ export function ChangeZeroToUndefined(value: number): number | undefined {
 }
 
 export const mapCoinData = (data: CoinDataProps): CoinItem => {
-  console.log('data.volume_24h', data.volume_24h);
   return {
     name: data.name,
     price: data.price,

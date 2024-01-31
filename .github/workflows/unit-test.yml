@@ -18,7 +18,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install:all
+          npm run install:all
 
       - name: Run tests
         run: |

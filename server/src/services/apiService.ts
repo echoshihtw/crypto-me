@@ -30,8 +30,6 @@ export async function fetchCryptoPrices(): Promise<CryptoPriceInfo[]> {
 
     let prices: CryptoPriceInfo[] = [];
     const { data } = response.data;
-    console.log("received data....");
-    // TODO: investigate why it takes so long
     symbols.forEach((crypto) => {
       if (data[crypto]) {
         prices.push({

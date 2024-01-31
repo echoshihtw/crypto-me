@@ -12,21 +12,20 @@ To start the project locally,
 2. Install dependencies from the project root directory
     ```
     cd crypto-me
-   
-   # (recommended) for both client and server 
-    npm run install:all
-    
-    # client 
-    npm run install:client
-   
-   # server
-    npm run install:server
+
+    # Install root dependencies
+    npm install
     ```
-3. create your own .env file in the server directory and add your own API key from [CoinMarketCap](https://coinmarketcap.com/api/) 
+3. Install dependencies for client and server
+    ``` 
+    npm run install:all
+    ```
+    
+4. create your own .env file in the server directory and add your own API key from [CoinMarketCap](https://coinmarketcap.com/api/) 
     ```
     CMC_PRO_API_KEY=your_api_key
     ```
-4. start the project
+5. start the project
     ```
     # (recommended) for both client and server 
     npm start
@@ -37,7 +36,7 @@ To start the project locally,
    # server
     npm run start:server
      ```
-5. open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+6. open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
 ## Project Structure

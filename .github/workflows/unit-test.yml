@@ -18,8 +18,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd client npm install && cd server npm install
+          npm install:all
 
       - name: Run tests
         run: |
-          npm run test
+          cd client && npm run test

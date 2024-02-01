@@ -32,7 +32,12 @@ To start the project locally,
      ```
 6. open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## Testing
+Run unit tests for client and server dir from the root package.json
 
+```
+npm run test
+```
 ## Project Structure
 ```
 crypto-me/

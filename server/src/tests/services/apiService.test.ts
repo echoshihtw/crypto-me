@@ -55,6 +55,4 @@ describe("API Service", () => {
       },
     ]);
   });
-
-  // Add more tests here to cover various scenarios like API errors
 });

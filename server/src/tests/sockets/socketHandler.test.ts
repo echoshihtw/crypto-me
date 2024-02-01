@@ -24,6 +24,4 @@ describe("Socket Handler", () => {
   it("should set up socket server without error", () => {
     expect(ioServer).toBeDefined();
   });
-
-  // Further tests can be added to simulate socket events if necessary
 });

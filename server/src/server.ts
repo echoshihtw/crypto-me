@@ -1,6 +1,6 @@
 import express from "express";
 import http from "http";
-import { fetchCryptoPrices } from "./services/apiService";
+import { cryptoPrices, getCryptoPrices } from "./services/apiService";
 import { setupSocketServer } from "./sockets/socketHandler";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -26,14 +26,22 @@ app.use(
 const server = http.createServer(app);
 const io = setupSocketServer(server);
 
+// Get crypto price when there is at least one socket connected
+// and emit to "crypto-price" namespace every 60 seconds.
+// Otherwise, do nothing.
 setInterval(async () => {
+  if (io.of("/crypto-price").sockets.size === 0) {
+    console.log("No socket connected, returning early...");
+    return;
+  }
   try {
-    const cryptoPrices = await fetchCryptoPrices();
-    io.emit("cryptoPricesUpdate", cryptoPrices);
+    await getCryptoPrices();
+    io.of("/crypto-price").emit("update-price", cryptoPrices);
+    console.log(`${Date.now()}: Emitted update-price`);
   } catch (error) {
     console.error("Failed to fetch crypto prices:", error);
   }
-}, 60000);
+}, 6000);
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

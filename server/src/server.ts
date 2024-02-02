@@ -1,6 +1,6 @@
 import express from "express";
 import http from "http";
-import { cryptoPrices, getCryptoPrices } from "./services/apiService";
+import { fetchCryptoPrices } from "./services/apiService";
 import { setupSocketServer } from "./sockets/socketHandler";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -25,6 +25,15 @@ app.use(
 
 const server = http.createServer(app);
 const io = setupSocketServer(server);
+
+export let cryptoPrices: any;
+export let lastUpdated: number;
+
+export async function getCryptoPrices() {
+  console.log("Fetching crypto prices...");
+  cryptoPrices = await fetchCryptoPrices();
+  lastUpdated = Date.now();
+}
 
 // Get crypto price when there is at least one socket connected
 // and emit to "crypto-price" namespace every 60 seconds.

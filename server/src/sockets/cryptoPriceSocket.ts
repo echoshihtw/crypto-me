@@ -1,6 +1,6 @@
 import { Server as SocketIOServer } from "socket.io";
 import http from "http";
-import { fetchCryptoPrices } from "../services/apiService";
+import fetchCryptoPrices from "../services/fetchCryptoPrices";
 
 export let cryptoPrices: any;
 export let lastUpdated: number;
@@ -11,7 +11,7 @@ export async function getCryptoPrices() {
   lastUpdated = Date.now();
 }
 
-export function cryptoPriceSocket(server: http.Server) {
+export default function cryptoPriceSocket(server: http.Server) {
   const io = new SocketIOServer(server, {
     cors: {
       origin: "http://localhost:3000",

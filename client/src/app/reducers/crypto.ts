@@ -9,7 +9,7 @@ interface CryptoState {
 
 const initialState: CryptoState = {
   data: [],
-  isLoading: true,
+  isLoading: false,
   error: null,
 };
 
@@ -19,15 +19,17 @@ const cryptoSlice = createSlice({
   reducers: {
     setCryptoData: (state, action) => {
       state.data = action.payload;
-      state.isLoading = false;
       state.error = null;
     },
     setError: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { setCryptoData, setError } = cryptoSlice.actions;
+export const { setCryptoData, setError, setIsLoading } = cryptoSlice.actions;
 export default cryptoSlice.reducer;

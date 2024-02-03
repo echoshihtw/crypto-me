@@ -1,7 +1,7 @@
 import http from "http";
 import dotenv from "dotenv";
 import { app } from "./app";
-import { cryptoPriceSocket } from "./sockets/cryptoPriceSocket";
+import cryptoPriceSocket from "./sockets/cryptoPriceSocket";
 
 if (process.env.NODE_ENV === "test") {
   dotenv.config({ path: ".env.test" });

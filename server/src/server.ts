@@ -48,9 +48,9 @@ setInterval(async () => {
     io.of("/crypto-price").emit("update-price", cryptoPrices);
     console.log(`${Date.now()}: Emitted update-price`);
   } catch (error) {
-    console.error("Failed to fetch crypto prices:", error);
+    throw new Error(`Failed to fetch crypto prices: ${error}`);
   }
-}, 6000);
+}, 60000);
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

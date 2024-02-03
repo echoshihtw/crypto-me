@@ -1,10 +1,10 @@
 import axios from "axios";
-import { fetchCryptoPrices } from "../../services/apiService";
+import fetchCryptoPrices from "../../services/fetchCryptoPrices";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe("API Service", () => {
+describe("fetchCryptoPrices", () => {
   it("fetches crypto prices correctly", async () => {
     const mockResponse = {
       data: {

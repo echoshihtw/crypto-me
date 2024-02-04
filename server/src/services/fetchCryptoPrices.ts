@@ -15,7 +15,7 @@ const symbols = [
   "SJCX",
 ];
 
-export async function fetchCryptoPrices(): Promise<CryptoPriceInfo[]> {
+export default async function fetchCryptoPrice(): Promise<CryptoPriceInfo[]> {
   try {
     const response = await axios.get(config.API_URL, {
       params: {
@@ -24,7 +24,8 @@ export async function fetchCryptoPrices(): Promise<CryptoPriceInfo[]> {
       },
       headers: {
         "X-CMC_PRO_API_KEY": config.API_KEY,
-        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        // added to fix CORS issue
+        "Access-Control-Allow-Origin": "*",
       },
     });
 

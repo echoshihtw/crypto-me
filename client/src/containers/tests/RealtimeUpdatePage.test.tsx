@@ -6,7 +6,24 @@ import RealtimeUpdatePage from '../RealtimeUpdatePage';
 
 const mockStore = configureStore([]);
 
-describe('RealtimeUpdatePage Component', () => {
+jest.mock('../../app/hooks', () => ({
+  useAppDispatch: () => jest.fn(),
+  useAppSelector: jest.fn((fn) => fn()),
+}));
+
+jest.mock('socket.io-client', () => {
+  const mockSocket = {
+    emit: jest.fn(),
+    on: jest.fn((event, callback) => {
+      if (event === 'current-price') {
+        callback([{ id: 'bitcoin', price: '42000' }]);
+      }
+    }),
+  };
+  return jest.fn(() => mockSocket);
+});
+
+describe('RealtimeUpdatePage', () => {
   let store: MockStoreEnhanced<unknown, {}>;
 
   beforeEach(() => {
@@ -19,7 +36,7 @@ describe('RealtimeUpdatePage Component', () => {
     });
   });
 
-  test('renders RealtimeUpdatePage component', async () => {
+  it('renders RealtimeUpdatePage component', async () => {
     render(
       <Provider store={store}>
         <RealtimeUpdatePage />

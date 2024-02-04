@@ -1,9 +1,13 @@
-import cryptoReducer, { setCryptoData, setError } from '../crypto';
+import cryptoReducer, {
+  setCryptoData,
+  setError,
+  setIsLoading,
+} from '../crypto';
 
 describe('cryptoSlice reducer', () => {
   const initialState = {
     data: [],
-    isLoading: true,
+    isLoading: false,
     error: null,
   };
 
@@ -18,6 +22,13 @@ describe('cryptoSlice reducer', () => {
     expect(state.data).toEqual(payload);
     expect(state.isLoading).toBe(false);
     expect(state.error).toBeNull();
+  });
+
+  test('should handle setIsLoading action', () => {
+    const action = setIsLoading(true);
+    const state = cryptoReducer(initialState, action);
+
+    expect(state.isLoading).toBe(true);
   });
 
   test('should handle setError action', () => {

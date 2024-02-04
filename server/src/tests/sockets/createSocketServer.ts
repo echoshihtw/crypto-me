@@ -1,11 +1,11 @@
-import socketServer from "../../sockets/socketServer";
+import createSocketServer from "../../sockets/createSocketServer";
 import { createServer } from "node:http";
 import { Server as SocketIOServer } from "socket.io";
 
-describe("socketServer", () => {
+describe("createSocketServer", () => {
   it("should create and configure socket.io server", () => {
     const httpServer = createServer();
-    const io = socketServer(httpServer);
+    const io = createSocketServer(httpServer);
     expect(io).toBeInstanceOf(SocketIOServer);
     expect(io._opts).toHaveProperty("cors");
     expect(io._opts["cors"]).toEqual({

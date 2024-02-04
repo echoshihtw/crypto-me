@@ -1,32 +1,20 @@
-import fetchCryptoPrices from "../../services/fetchCryptoPrices";
-import cryptoPriceSocket, {
-  cryptoPrices,
-  getCryptoPrices,
-} from "../../sockets/cryptoPriceSocket";
 import http from "http";
-import {
-  Server as SocketIOServer,
-  type Socket as ServerSocket,
-} from "socket.io";
-import { io as ioc, type Socket as ClientSocket } from "socket.io-client";
-import { createServer } from "node:http";
 import { type AddressInfo } from "node:net";
+import { Server as SocketIOServer } from "socket.io";
+import { createServer } from "node:http";
+import { io as ioc, type Socket as ClientSocket } from "socket.io-client";
+import cryptoPriceSocket from "../../sockets/cryptoPriceSocket";
+import createSocketServer from "../../sockets/createSocketServer";
+import updateCryptoPrices from "../../services/updateCryptoPrice";
+import { getPrice } from "../../stateManager";
+import fetchCryptoPrice from "../../services/fetchCryptoPrices";
 
-const mockCryptoPrices = { BTC: "42000", ETH: "3200" };
+jest.mock("../../stateManager", () => ({
+  getLastUpdated: jest.fn(),
+  getPrice: jest.fn(),
+}));
 
-jest.mock("../../services/fetchCryptoPrices", () => jest.fn());
-
-describe("getCryptoPrices", () => {
-  beforeAll(() => {
-    (fetchCryptoPrices as jest.Mock).mockResolvedValue(mockCryptoPrices);
-  });
-
-  it("fetches crypto prices and updates global variables", async () => {
-    await getCryptoPrices();
-
-    expect(cryptoPrices).toEqual(mockCryptoPrices);
-  });
-});
+jest.mock("../../services/updateCryptoPrice", () => jest.fn());
 
 jest.mock("socket.io", () => {
   return {
@@ -53,43 +41,55 @@ jest.mock("socket.io", () => {
 describe("cryptoPriceSocket", () => {
   let httpServer: http.Server;
   let io: SocketIOServer;
-  let serverSocket: ServerSocket;
   let clientSocket: ClientSocket;
-  let mockCryptoPrices: any;
 
   beforeAll((done) => {
-    const httpServer = createServer();
-    io = new SocketIOServer(httpServer, {});
+    httpServer = http.createServer();
+    io = createSocketServer(httpServer);
     httpServer.listen(() => {
       const port = (httpServer.address() as AddressInfo).port;
       clientSocket = ioc(`http://localhost:${port}`);
-      io.on("connection", (socket) => {
-        serverSocket = socket;
-      });
       clientSocket.on("connect", done);
-      done();
     });
+    cryptoPriceSocket(io);
+    done();
   });
 
   afterAll((done) => {
     io.close();
-    clientSocket.disconnect();
+    httpServer.close();
+    clientSocket.close();
     done();
   });
 
   beforeEach(() => {
-    io = cryptoPriceSocket(httpServer);
+    jest.clearAllMocks();
   });
 
-  it("should create and configure socket.io server", () => {
-    expect(SocketIOServer).toHaveBeenCalledWith(httpServer, {
-      cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET"],
-      },
+  it("should create a namespace '/crypto-price'", () => {
+    expect(io.of("/crypto-price")).toBeDefined();
+  });
+
+  it("should emits current price on new socket connection", () => {
+    (getPrice as jest.Mock).mockResolvedValue(100);
+    io.of("/crypto-price").emit("current-price", (price: number) => {
+      expect(price).toBe(100);
     });
   });
-  it("should connect to the /crypto-price namespace", () => {
-    expect(io.of).toHaveBeenCalledWith("/crypto-price");
+
+  it("updates and emits prices periodically", () => {
+    jest.useFakeTimers();
+    (getPrice as jest.Mock).mockResolvedValue(200);
+    jest.advanceTimersByTime(60000);
+
+    io.of("/crypto-price").emit("update-price", (price: number) => {
+      expect(price).toBe(200);
+    });
+    jest.useRealTimers();
+  });
+
+  it("does not update crypto price when no sockets are connected", () => {
+    jest.advanceTimersByTime(60000);
+    expect(updateCryptoPrices).not.toHaveBeenCalled();
   });
 });

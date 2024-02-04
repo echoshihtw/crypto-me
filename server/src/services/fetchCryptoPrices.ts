@@ -15,7 +15,7 @@ const symbols = [
   "SJCX",
 ];
 
-export default async function fetchCryptoPrices(): Promise<CryptoPriceInfo[]> {
+export default async function fetchCryptoPrice(): Promise<CryptoPriceInfo[]> {
   try {
     const response = await axios.get(config.API_URL, {
       params: {

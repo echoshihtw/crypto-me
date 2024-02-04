@@ -1,43 +1,46 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import CoinsOverview from '../components/CoinsOverview';
 import { selectCryptoData, selectIsLoading } from '../app/selectors/crypto';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { setCryptoData, setError } from '../app/reducers/crypto';
-import io from 'socket.io-client';
+import { setCryptoData, setIsLoading } from '../app/reducers/crypto';
 import { mapCoinData } from '../models/CoinMapper';
+import { Manager } from 'socket.io-client';
 
 const RealtimeUpdatePage = () => {
   const dispatch = useAppDispatch();
   const cryptoData = useAppSelector(selectCryptoData);
   const isLoading = useAppSelector(selectIsLoading);
 
+  const manager = useMemo(() => new Manager('http://localhost:3003'), []);
+  let cryptoPriceSocket = useMemo(
+    () => manager.socket('/crypto-price'),
+    [manager],
+  );
+
   useEffect(() => {
-    const socket = io('http://localhost:3003');
-    socket.connect();
+    cryptoPriceSocket.connect();
+    dispatch(setIsLoading(true));
 
-    socket.on('cryptoPrices', (data) => {
+    cryptoPriceSocket.on('current-price', (data) => {
+      dispatch(setIsLoading(false));
       const mappedData = data.map((item: any) => mapCoinData(item));
       dispatch(setCryptoData(mappedData));
     });
 
-    socket.on('cryptoPricesUpdate', (data) => {
+    cryptoPriceSocket.on('update-price', (data) => {
+      if (data.length === 0) {
+        return;
+      }
       const mappedData = data.map((item: any) => mapCoinData(item));
       dispatch(setCryptoData(mappedData));
-    });
-
-    socket.on('connect_error', () => {
-      dispatch(setError('something went wrong....please try again later'));
-    });
-
-    // Optional: Handle disconnect event
-    socket.on('disconnect', () => {
-      dispatch(setError('something went wrong....please try again later'));
     });
 
     return () => {
-      socket.disconnect();
+      cryptoPriceSocket.off('current-price');
+      cryptoPriceSocket.off('update-price');
+      cryptoPriceSocket.disconnect();
     };
-  }, [dispatch]);
+  }, [cryptoPriceSocket, dispatch]);
 
   return (
     <div className="h-full w-full grid place-items-center p-6">
